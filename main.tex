@@ -1,9 +1,11 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 \title{CySec Report}
 \author{
-Group 3: Team SERCURITY\\
+Group 3: Team SECURITY\\
 \texttt{Duc-Khang Nguyen \hspace{0.3in} Jiwan Chong \hspace{0.3in} Jeffrey Begaye }
 }
 
@@ -109,21 +111,55 @@ There will be three types of users for our website:
 \begin{itemize}
     \item \textbf{Visitors}: The visitors can look at the club information at the Home page, the club news (about events or activity polls, or just news related to the club's field of study) at the News page, and the club discussions posted by club member in the Discussion page. Visitors can not make comments in discussion posts or vote on any polling activities posted by Officers. If they want to become club member, they can sign up for an account.
     \item \textbf{Club Member}: As a club member, user can do everything a visitor can do (checking out posts), in addition, user can vote on polls made by Officers, create a discussion thread, post or reply a comment. Member can also apply to become an Officer, which can be approved by other Officers.
-    \item \textbf{Club Officers}: As a club officer, user can do everything a member can do, in addition, user will have access to a new tab called Manage, in which users can create a new voting poll or news to the News page, look at Web Statistic, and the discussion post with other officers regarding the latest voting poll result. Officier can also remove a discussion post or hide a post from public (only signed-up members can see the discussion), as well as approve the request to become an officer from Member users.
+    \item \textbf{Club Officers}: As a club officer, user can do everything a member can do, in addition, user will have access to a new tab called Manage, in which users can create a new voting poll or news to the News page, look at Web Statistic, and the discussion post with other officers regarding the latest voting poll result. Officer can also remove a discussion post or hide a post from public (only signed-up members can see the discussion), as well as approve the request to become an officer from Member users.
 \end{itemize}
 
 
 
 \subsection{  3.b. Based on different user type, you should sketch up the system layout with proper story. For example, the realtor needs to register an account and login the system then he/she can add the information of the apartments. This process might have 5 to 10 different pages linked to each other. When you design the the website layout, please also consider how it looks like in different device, on laptop and in cellphone.}
-\begin{itemize}
-    \item \textbf{Visitors}: An individual has recently heard about New Mexico Tech and their new Cybersecurity Club website from a friend, so they decided to visit it.  As they enter the website address and hit ‘Enter’ they are directed to the main page – the ‘Home’ page.  As a new user to the website, they are given the role as a ‘Visitor’ with very limited privileges.  The ‘Home’ page has a navigation menu near the top with four options: Home, News, Discussion, and at the very right/end of the menu - Log In/Sign Up.  This ‘Home’ page the Visitor is currently on displays an ‘About Us’ section describing the history of the club, what the club does, who their audience is, and possibly more. 
-\par The Visitor then decides to check out the ‘News’ page.  They click on ‘News’ and then they are directed to a new page.  This new page simply replaces the ‘About Us’ section with posts related to relevant news articles under a new ‘News’ header, but also keeps everything from the ‘Home’ page the same.  The posts under the ‘News’ section contains: a title, brief description of the article, and tags or keywords found within the article.  If the Visitor or any other user decides to click on any of the posts, then they will be redirected to the source of the article on a new page.  The Visitor clicks on the first article and the source opens on their browser.  
-\par The Visitor then wishes to head on over to the ‘Discussion’ section.  They click on ‘Discussion’ and are redirected to the new page.  Like the ‘News’ section, the layout is the similar with the title changed to ‘Discussion’ and various amounts of posts being discussed over.  The Visitor clicks on the first post and is shown the discussion board.  The post is having a discussion on what type of pizza toppings the club would like to have for their next meeting.  The Visitor sees various replies and notices that they themselves cannot reply for the button is grayed out.  They wish to partake in the pizza toppings discussion, so they decide they want to signup for the website.  They click the Log In/Signup button at the top-right of the page and are shown the Log In page.
+\textbf{Visitors}: An individual has recently heard about New Mexico Tech and their new Cybersecurity Club website from a friend, so they decided to visit it.  As they enter the website address and hit ‘Enter’ they are directed to the main page – the ‘Home’ page.  As a new user to the website, they are given the role as a ‘Visitor’ with very limited privileges.  The ‘Home’ page has a navigation menu near the top with four options: Home, News, Discussion, and at the very right/end of the menu - Log In/Sign Up.  This ‘Home’ page the Visitor is currently on displays an ‘About Us’ section describing the history of the club, what the club does, who their audience is, and possibly more.
+\par
+\includegraphics[scale=0.60]{visitor_1.jpg}
+The Visitor then decides to check out the ‘News’ page.  They click on ‘News’ and then they are directed to a new page.  
+\par
+\includegraphics[scale=0.60]{visitor_2.jpg}
+This new page simply replaces the ‘About Us’ section with posts related to relevant news articles under a new ‘News’ header, but also keeps everything from the ‘Home’ page the same.  The posts under the ‘News’ section contains: a title, brief description of the article, and tags or keywords found within the article.  If the Visitor or any other user decides to click on any of the posts, then they will be redirected to the source of the article on a new page.  The Visitor clicks on the first article and the source opens on their browser.
+\par
+\includegraphics[scale=0.60]{visitor_3.jpg}
+\par The Visitor then wishes to head on over to the ‘Discussion’ section.  They click on ‘Discussion’ and are redirected to the new page.  
+\par
+\includegraphics[scale=0.60]{visitor_4.jpg} 
+\par Like the ‘News’ section, the layout is the similar with the title changed to ‘Discussion’ and various amounts of posts being discussed over.  The Visitor clicks on the first post and is shown the discussion board.
+\par
+\includegraphics[scale=0.60]{visitor_5.jpg}
+\par The post is having a discussion on what type of pizza toppings the club would like to have for their next meeting.  The Visitor sees various replies and notices that they themselves cannot reply for the button is grayed out.  They wish to partake in the pizza toppings discussion, so they decide they want to signup for the website.  They click the Log In/Signup button at the top-right of the page and are shown the Log In page.
+\par
+\includegraphics[scale=0.60]{visitor_6.jpg}
+\par
+\includegraphics[scale=0.60]{visitor_7.jpg}
 \par The Visitor clearly does not have a username or password yet, so they must register.  They click on ‘Here’ highlighted in blue and are redirected to the ‘Signup’ page.  They enter their information and now wait for approval from an officer of the club.
 
-    \item \textbf{Club Member}: Member.
-    \item \textbf{Club Officers}: Officer
-\end{itemize}  
+\par
+\textbf{Club Member}: Around the same time, a ‘Member’ of the club recently saw a hot new controversial topic about cybersecurity and wants to share it on the discussion board.  They first click on the Log In/Signup link at the top right and are redirected to the log in page.  
+\par
+\includegraphics[scale=0.60]{member_1.jpg} They enter their information and are redirected back to the homepage. 
+\par
+\includegraphics[scale=0.60]{member_2.jpg} The Member then clicks on Discussion and is shown the Discussion page but with a few more options than the Visitor.  The Member can click on a new button, ‘New Post’, allowing them to create a new post.  
+ Upon clicking ‘New Post’ they are shown a new layout letting them write a title, a description, add any provided tags, and then confirm their post.  
+\par
+\includegraphics[scale=0.60]{member_3.jpg} The Member creates the new post and must wait for an Officer to to approve of the post. After creating the new post, the Member realizes they had an ongoing conversation from last night that they forgot to reply to.  They find the post and open it.  
+\par
+\includegraphics[scale=0.60]{member_4.jpg} They look up and down the post to see if any new posts were added.  A new post was indeed added and the Member decides to reply to it.  The ‘Reply’ button that was grayed out for the Visitor is visible and clickable for the Member.  The Member clicks on the button and enters a reply.  
+\par
+\includegraphics[scale=0.60]{member_5.jpg} It is their lunch time so they get up and leave for lunch at Chartwells.
+
+\par
+\textbf{Club Officers}: An officer of the club logs checks out the club website to see if there any new applications or posts to moderate.  They log in and are shown the homepage where there is a new menu option called 'Manage'. 
+\par
+\includegraphics[scale=0.60]{officer_1.jpg} The Officer clicks on the 'Manage' tab and is redirected to the 'Manage' page.
+\par
+\includegraphics[scale=0.60]{officer_2.jpg} In the manage tab they notice two new notifications, one for a new applicant to the club website and the other for a new post in the discussion board.  The Officer reads over the application and the new discussion post and decides to approve both of them.  The Officer is done for the day for they must take a nap before their 3:00 p.m. math class.
+ 
   
   
 \end{document}
