@@ -1,0 +1,27 @@
+figure img {
+    border-radius: 8pt;
+    max-height: 12%;
+    max-width: 12%;
+    height: auto;
+    float: left;
+    margin-right: 12pt;
+    margin-bottom: 12pt;
+}
+
+section h3 {
+    margin-left: 27pt;
+}
+
+section {
+        clear:both;
+}
+
+h2 {
+    text-align: center;
+}
+
+.Member {
+   height: 180px;
+   margin-top: 5px;
+   padding: 10px;
+}

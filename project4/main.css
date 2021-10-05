@@ -1,0 +1,82 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #264653;
+  min-height: 100%;
+  max-width: 60%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #FFFFFF;
+  margin: auto;
+}
+body > * {
+}
+header {
+  font-size: 2.0 em;
+  padding: 20px;
+  background-color: #FFFFFF;
+
+}
+/*start nav section*/
+nav {
+  display: inline-block;
+  background-color: #264653;
+  width: 100%;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #dddddd;
+}
+nav li {
+  float: left;
+}
+nav li a {
+  display: block;
+  color: #FFFFFF;
+  text-decoration: none;
+  text-align: center;
+  padding: 20px 20px;
+  font-size: 1em;
+}
+
+
+/* Customized links for main sections */
+main a {
+    text-decoration: none;
+    color: #000000;
+}
+main a:hover {
+    color: #0000DF;
+}
+
+.webBody {
+  margin-top: 0px;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+
+
+/*end nav section*/
+/*main {
+  background-color: #888888;
+  padding: 20px;
+  margin-top: -5px;
+  height: 100%;
+}*/
+
+
+/*Things from reports page, can be used elsewhere*/
+/*
+#link {
+  color: blue;
+}
+
+.report{
+  border-top: 2px solid #000000;
+  -->
+}*/
