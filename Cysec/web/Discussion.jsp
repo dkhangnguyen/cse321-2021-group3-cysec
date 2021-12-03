@@ -28,8 +28,11 @@
             document.getElementById("discussionRedirect").submit();
         }
         
-        function gotoThread(){
-            document.getElementById("threadRedirect").submit();
+        function gotoThread(id){           
+            document.getElementById("threadRedirect" + id).submit();
+        }
+        function gotoAccount() {
+            document.getElementById("accountRedirect").submit();
         }
     </script>
 
@@ -45,8 +48,8 @@
 
             <div class="text-center my-3">
                 <img src="Logo1.png" alt="logo" class="img-thumbnail" style="max-width: 20vh; height: auto"/>
-                <h1 class="text-white fs-1 fw-bolder">Cyber Security Club</h1>
-                <h2 class="text-white fs-3 fw-bolder">New Mexico Tech</h2>
+                <h1 class="text-white fs-1 fw-bolder" style="color:#ffffff;">Cyber Security Club</h1>
+                <h2 class="text-white fs-3 fw-bolder" style="color:#ffffff;">New Mexico Tech</h2>
             </div>
         </header>
         
@@ -71,9 +74,11 @@
                             </form>
                         </li>
                         
-                        <!-- Change the link here to your account.jsp file , look at what I did for the two Links above-->
                         <li class="nav-item"> 
-                            <a style="color:#ffffff;" class="nav-link text-white" href="account.html">Account</a> 
+                            <form id="accountRedirect" action="PostServlet" method="post">  
+                                <input type="hidden" name="action" value="viewAccount">
+                                <a style="color:#ffffff;" class="nav-link text-white" href="#" onclick="gotoAccount()">Account</a>
+                            </form>    
                         </li>
                     </ul>
             </div>
@@ -82,30 +87,41 @@
         
       <!-- Body section -->
       
+    <c:if test="${user != null}">  
       <div class="row my-4 justify-content-center">
-        <form action="PostServlet" method="post">
+        <form action="PostServlet" method="post" class="col-lg-8">
             <input type="hidden" name="action" value="createPostRequest">
             <input type="submit" value="Create a Post">
         </form>
       </div>
+    </c:if> 
       
 
+     
+      
     <div class="row my-4 justify-content-center" id="DiscussionList" > 
         <c:forEach var="post"  items="${postList.postList}" >
             <c:if test="${post.postType == 2}">
 
-                <div class="my-3">
+                <div class="my-3" >
 
-                    <div class="container-fluid col-lg-10">
+                    <div class="container-fluid col-lg-10" 
+                         style="border-bottom: solid 2px black;
+                                border-top: solid 2px black;
+                                border-left: solid 5px black;
+                                padding-left: 20px;
+                                padding-bottom: 10px" >
                         
-                            <form id="threadRedirect" action="PostServlet" method="post">
-                                <input type="hidden" name="action" value="threadView">
-                                <input type="hidden" name="postId" value="${post.postId}">
+                        
+                            <form id="threadRedirect${post.postId}" action="PostServlet" method="post">
+                                <input type="hidden" name="action" value="threadView">                                
+                                <input type="hidden" name="postId" value="${post.postId}"> 
+
                                 <h3>    
-                                <a class="nav-link" href="#" id="PostTitle" onclick="gotoThread()" >
-                                    ${post.postTitle}
-                                </a>
-                                </h3>
+                                    <a class="nav-link" href="#" id="PostTitle" onclick="gotoThread(${post.postId})" >
+                                        ${post.postTitle} 
+                                    </a>
+                                </h3>                                    
                             </form>
                             
                                 

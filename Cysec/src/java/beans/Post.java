@@ -120,6 +120,16 @@ public class Post implements Serializable{
     }
     
     
+    public Comment getCommentFromId(int id) {
+        for (Comment c : this.comments) {
+            if (c.getCommentId() == id) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
+    
     /**
      * add new Comment into the List 
      * @param newComment the new comment
@@ -164,9 +174,9 @@ public class Post implements Serializable{
                 Connection connection = DriverManager.getConnection(dbURL, username, password);
 
                 java.sql.Statement statement = connection.createStatement();
-                String myQuery1 = "INSERT INTO post (postId, postTitle, postType, username, postContent, postDate) "
+                String myQuery1 = "INSERT INTO Post (postId, postTitle, postType, username, postContent, postDate) "
                                              + "VALUES (?, ?, ?, ?, ?, ?);";
-                String myQuery2 = "INSERT INTO comment (commentId, postId, username, commentContent, commentDate) "
+                String myQuery2 = "INSERT INTO Comment (commentId, postId, username, commentContent, commentDate) "
                                              + "VALUES (?, ?, ?, ?, ?);";
                 PreparedStatement  ps1 = connection.prepareStatement(myQuery1);
                 PreparedStatement  ps2 = connection.prepareStatement(myQuery2);
@@ -177,7 +187,7 @@ public class Post implements Serializable{
                 ps1.setInt(3, this.postType);
                 ps1.setString(4, this.username);
                 ps1.setString(5, this.postContent);
-                ps2.setTimestamp(5, this.postDate);
+                ps1.setTimestamp(6, this.postDate);
                 if (!ps1.execute())
                     return 0;
                     
@@ -229,7 +239,7 @@ public class Post implements Serializable{
                 Connection connection = DriverManager.getConnection(dbURL, username, password);
 
                 java.sql.Statement statement = connection.createStatement();
-                String myQuery1 = "DELETE FROM post WHERE postId= ?";
+                String myQuery1 = "DELETE FROM Post WHERE postId= ?";
 
                 PreparedStatement  ps1 = connection.prepareStatement(myQuery1);
 

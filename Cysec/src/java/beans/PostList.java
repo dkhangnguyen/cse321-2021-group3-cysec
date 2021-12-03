@@ -27,6 +27,20 @@ public class PostList implements Serializable {
         return this.postList;
     }
     
+    public int getLatestCommentId() {
+        int latest = 1;
+        for (Post p : postList) {
+            if (p.getCommentCount() > 0) {
+                int id = p.getComments().get(0).getCommentId();
+                if (id > latest) {
+                    latest = id;
+                }
+            }
+        }
+        latest = latest + 1;
+        return latest;
+    }
+    
     public Post getPostFromId(int id) {
         for (Post p : postList) {
             if (p.getPostId() == id) {
@@ -52,7 +66,7 @@ public class PostList implements Serializable {
 
                 java.sql.Statement statement = connection.createStatement();
                 String myQuery1 = "SELECT * FROM Post where postId=" + id;
-                String myQuery2 = "SELECT * FROM Comment where postId" + id;
+                String myQuery2 = "SELECT * FROM Comment where postId=" + id;
                 ResultSet rs1 = statement.executeQuery(myQuery1);
                 ResultSet rs2 = statement.executeQuery(myQuery2);
 
@@ -181,8 +195,8 @@ public class PostList implements Serializable {
                 Connection connection = DriverManager.getConnection(dbURL, username, password);
 
                 java.sql.Statement statement = connection.createStatement();
-                String myQuery1 = "SELECT * FROM post";
-                String myQuery2 = "SELECT * FROM comment";
+                String myQuery1 = "SELECT * FROM Post";
+                String myQuery2 = "SELECT * FROM Comment";
                 ResultSet rs1 = statement.executeQuery(myQuery1);
                 ResultSet rs2 = statement.executeQuery(myQuery2);
 

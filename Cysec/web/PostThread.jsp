@@ -28,6 +28,9 @@
         function gotoDiscussion(){
             document.getElementById("discussionRedirect").submit();
         }
+        function gotoAccount() {
+            document.getElementById("accountRedirect").submit();
+        }
     </script>
 </head>
 
@@ -41,8 +44,8 @@
 
             <div class="text-center my-3">
                 <img src="Logo1.png" alt="logo" class="img-thumbnail" style="max-width: 20vh; height: auto"/>
-                <h1 class="text-white fs-1 fw-bolder">Cyber Security Club</h1>
-                <h2 class="text-white fs-3 fw-bolder">New Mexico Tech</h2>
+                <h1 class="text-white fs-1 fw-bolder" style="color:#ffffff;">Cyber Security Club</h1>
+                <h2 class="text-white fs-3 fw-bolder" style="color:#ffffff;">New Mexico Tech</h2>
             </div>
         </header>
         
@@ -67,19 +70,18 @@
                             </form>
                         </li>
                         
-                        <!-- Change the link here to your account.jsp file , look at what I did for the two Links above-->
                         <li class="nav-item"> 
-                            <a style="color:#ffffff;" class="nav-link text-white" href="account.html">Account</a> 
+                            <form id="accountRedirect" action="PostServlet" method="post">  
+                                <input type="hidden" name="action" value="viewAccount">
+                                <a style="color:#ffffff;" class="nav-link text-white" href="#" onclick="gotoAccount()">Account</a>
+                            </form>    
                         </li>
                     </ul>
             </div>
         </nav>
         
         
-      <!-- Body section -->
-      <%
-          int id = Integer.parseInt(request.getParameter("postId"));
-      %>    
+      <!-- Body section --> 
 
       <div class="row my-4 justify-content-center">
              
@@ -116,25 +118,28 @@
                 
                     <c:when test="${postView.postType == 2}">
                     
+                        <c:if test="${user != null}">  
                         <div id="comment-box">
                             <form action="PostServlet" method="post">
                                 <textarea id="commentBox" name="commentContent" rows="4" cols="50" required>
-                                    Enter your comment here...
+                                Enter your comment here...
                                 </textarea> 
-                                <input type="hidden" name="postid" value="${postView.postId}">
+                                <input type="hidden" name="postId" value="${postView.postId}">
                                 <input type="hidden" name="action" value="postComment">
-                                <input type="hidden" name="author" value="${postView.username}">
+                                <input type="hidden" name="author" value="${user.username}">
                                 <input type="submit" value="Post Comment">
 
                             </form>
                         </div>
-
+                        </c:if>
+                                
+                        <br>            
 
                         <div class="row" id="CommentList">
 
                             <c:forEach var="comment" items="${postView.comments}">
 
-                                <div id="comment1" class="container-fluid my-3" style="border-left: 2px solid black">
+                                <div id="comment1" class="container-fluid my-3" style="border-left: 2px solid black; padding-left: 10px;">
 
                                     <div class="row">
                                         <div class="col-2 fw-light" id="Commenter">
@@ -143,6 +148,21 @@
                                         <div class="col-4 fw-light" id="CommentDateTime">
                                             <fmt:formatDate value="${comment.commentDate}" type="both" />
                                         </div>
+                                        
+                                        
+                                        <c:if test="${user != null}"> 
+                                            <c:if test="${user.username == comment.username}">
+
+                                                <div class="col-2 fw-light" >
+                                                    <form action="PostServlet" method="post">
+                                                        <input type="hidden" name="action" value="deleteComment">
+                                                        <input type="hidden" name="postId" value="${postView.postId}">
+                                                        <input type="hidden" name="commentId" value="${comment.commentId}">
+                                                        <input type="submit" value="Delete Comment">
+                                                    </form> 
+                                                </div>
+                                            </c:if>    
+                                        </c:if>
                                     </div>
 
                                     <p id="CommentContent" class="mb-0">
@@ -164,7 +184,19 @@
                     </c:otherwise>
                 
                 </c:choose>    
-                
+                    
+                <c:if test="${user != null}"> 
+                    <c:if test="${user.username == postView.username}">
+                <div class="row my-4 justify-content-center">
+                    <form action="PostServlet" method="post">
+                        <input type="hidden" name="action" value="deletePost">
+                        <input type="hidden" name="postType" value="${postView.postType}">
+                        <input type="hidden" name="postId" value="${postView.postId}">
+                        <input type="submit" value="Delete this Post">
+                    </form>
+                </div>   
+                    </c:if>    
+                </c:if> 
                 
             </div>
             

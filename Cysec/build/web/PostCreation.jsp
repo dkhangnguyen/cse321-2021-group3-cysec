@@ -24,6 +24,9 @@
         function gotoDiscussion(){
             document.getElementById("discussionRedirect").submit();
         }
+        function gotoAccount() {
+            document.getElementById("accountRedirect").submit();
+        }
     </script>
 
 </head>
@@ -38,8 +41,8 @@
 
             <div class="text-center my-3">
                 <img src="Logo1.png" alt="logo" class="img-thumbnail" style="max-width: 20vh; height: auto"/>
-                <h1 class="text-white fs-1 fw-bolder">Cyber Security Club</h1>
-                <h2 class="text-white fs-3 fw-bolder">New Mexico Tech</h2>
+                <h1 class="text-white fs-1 fw-bolder" style="color:#ffffff;">Cyber Security Club</h1>
+                <h2 class="text-white fs-3 fw-bolder" style="color:#ffffff;">New Mexico Tech</h2>
             </div>
         </header>
         
@@ -64,9 +67,11 @@
                             </form>
                         </li>
                         
-                        <!-- Change the link here to your account.jsp file , look at what I did for the two Links above-->
                         <li class="nav-item"> 
-                            <a style="color:#ffffff;" class="nav-link text-white" href="account.html">Account</a> 
+                            <form id="accountRedirect" action="PostServlet" method="post">  
+                                <input type="hidden" name="action" value="viewAccount">
+                                <a style="color:#ffffff;" class="nav-link text-white" href="#" onclick="gotoAccount()">Account</a>
+                            </form>    
                         </li>
                     </ul>
             </div>
@@ -76,7 +81,8 @@
       <!-- Body section -->
       
       
-      
+      Hi ${user.username}
+
 
       <div class="row my-4 justify-content-center"> 
       
@@ -88,15 +94,15 @@
                     <label for="postTitile">Post Title: </label><br>
                     <input type="text" name="postTitle" id="postTitle" maxlength="256" required><br>
                     <br>
-                    <input type="radio" id="DiscussionPost" name="postType" value="DiscussionPost" checked="true">
+                    <input type="radio" id="DiscussionPost" name="postType" value="Discussion" checked="true">
                     <label for="DiscussionPost">Discussion Post </label><br>
-                    <input type="radio" id="NewsArticle" name="PostType" value="NewsArticle">
+                    <input type="radio" id="NewsArticle" name="postType" value="News">
                     <label for="NewsArticle">News Article </label><br>
                     <br>
                     <label for="postContent">Post Content: </label><br>
                     <textarea id="postContent" name="postContent" rows="10" cols="80" required> </textarea>  
                     <br>
-                    <input type="hidden" name="author" value="MemberA">
+                    <input type="hidden" name="author" value="${user.username}">
                     <input type="hidden" name="action" value="createPost">
                     <br>
                     <input type="submit" value="Create Post">

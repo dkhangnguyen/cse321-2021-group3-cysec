@@ -100,7 +100,7 @@ public class Comment implements Serializable {
 
                 java.sql.Statement statement = connection.createStatement();
 
-                String myQuery2 = "INSERT INTO comment (commentId, postId, username, commentContent, commentDate) "
+                String myQuery2 = "INSERT INTO Comment (commentId, postId, username, commentContent, commentDate) "
                                              + "VALUES (?, ?, ?, ?, ?);";
                 PreparedStatement  ps2 = connection.prepareStatement(myQuery2);
 

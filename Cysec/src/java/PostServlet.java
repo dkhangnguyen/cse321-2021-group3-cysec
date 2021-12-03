@@ -81,12 +81,15 @@ public class PostServlet extends HttpServlet {
         HttpSession session = request.getSession();
         PostList postList = (PostList) session.getAttribute("postList");
         
+        
+        
         if (postList == null) {
             postList = new PostList();
             postList = postList.getListFromDB();   
-            System.out.println("update from database");
+            //System.out.println("update from database");
             
         }
+        
         
         
         session.setAttribute("postList", postList);
@@ -96,26 +99,40 @@ public class PostServlet extends HttpServlet {
         if (action.equals("none")) {
             url = "/Discussion.jsp";
         } else if (action.equals("createPostRequest")) {
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
+
             session.setAttribute("postList", postList);
             url = "/PostCreation.jsp";
             
         } else if (action.equals("viewDiscussion")) {
-            
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
             url="/Discussion.jsp";    
                 
         } else if (action.equals("viewNews")) {
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
             url="/News.jsp";
         
+        } else if (action.equals("viewAccount")) {
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
+            url="/Account.jsp";
+            
         } else if (action.equals("createPost")) {
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
             String postTitle = request.getParameter("postTitle");
             String postTypeString = request.getParameter("postType");
             int postType = 2;
             
-            if (postTypeString.equals("NewsArticle")) {
-                postType = 1;
-            } else if (postTypeString.equals("DiscussionPost")) {
+            if (postTypeString.equals("Discussion")) {
                 postType = 2;
+            } else if (postTypeString.equals("News")) {
+                postType = 1;
             }
+             
             
             String postAuthor = request.getParameter("author");
             String postContent = request.getParameter("postContent");
@@ -133,39 +150,84 @@ public class PostServlet extends HttpServlet {
             postList.addPost(newPost);
             
             session.setAttribute("postList", postList);
-            url = "/Discussion.jsp";
+            if (postType == 1) {
+                url = "/News.jsp";
+            } else if (postType == 2) {
+                url = "/Discussion.jsp";
+            }
             
             
         } else if (action.equals("threadView")) {
-            int postIdToView = Integer.parseInt(request.getParameter("postId"));        
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
+            int postIdToView = Integer.parseInt(request.getParameter("postId"));
+            System.out.println("ID received = " + postIdToView);
             Post postToView = postList.getPostFromId(postIdToView);
+            System.out.println("Receive post: " + postToView.getPostTitle());
             if (postToView != null) {
                 session.setAttribute("postView", postToView);
-                url = "/PostThread.jsp?postId=" + postIdToView;
+                //url = "/PostThread.jsp?postId=" + postIdToView;
+                url = "/PostThread.jsp";
             } else {
                 url = "/Discussion.jsp";
             }
            
         } else if (action.equals("postComment")) {
-            int postId = Integer.parseInt(request.getParameter("postId"));
+            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", user);
+            int postToView = Integer.parseInt(request.getParameter("postId"));
             
-            Post p = postList.getPostFromId(postId);
-            int newCommentId = p.getComments().get(0).getCommentId() + 1;
+            Post p = postList.getPostFromId(postToView);
+            
+            int newCommentId = postList.getLatestCommentId();
             
             String commentContent = request.getParameter("commentContent");
             String commentUsername = request.getParameter("author");
             
             Comment c = new Comment();
             c.setCommentId(newCommentId);
-            c.setPostId(postId);
+            c.setPostId(postToView);
             c.setUsername(commentUsername);
             c.setCommentContent(commentContent);
             
-            postList.getPostFromId(postId).addComment(c);
+            postList.getPostFromId(postToView).addComment(c);
+            session.setAttribute("postList", postList);
+            session.setAttribute("postView", p);
+            
+            
+            url = "/PostThread.jsp";
+        } else if (action.equals("deletePost")) {
+            int postId = Integer.parseInt(request.getParameter("postId"));
+            int postType = Integer.parseInt(request.getParameter("postType"));
+            Post deletingPost = postList.getPostFromId(postId);
+            postList.removePost(deletingPost);
             session.setAttribute("postList", postList);
             
-            url = "/PostThread.jsp?postId=" + postId;
-        } 
+            if (postType == 1) {
+                url="/News.jsp";
+            } else if (postType == 2) {
+                url="/Discussion.jsp";
+            }
+            
+        } else if (action.equals("deleteComment")) {
+            String test = request.getParameter("postId");
+            if (test != null) {
+                System.out.println(test);
+            int postId = Integer.parseInt(request.getParameter("postId"));
+            int commentId = Integer.parseInt(request.getParameter("commentId"));
+            Post p = postList.getPostFromId(postId);
+            if (p != null) {
+                Comment c = p.getCommentFromId(commentId);
+                p.removeComment(c);
+            }
+            session.setAttribute("postList", postList);
+            session.setAttribute("postView", p);
+            url="/PostThread.jsp";
+            } else if (test == null) {
+                System.out.println("return null");
+            }
+            
+        }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
